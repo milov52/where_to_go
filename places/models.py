@@ -21,3 +21,19 @@ class Place(models.Model):
     class Meta:
         verbose_name = "Место"
         verbose_name_plural = "Места"
+
+
+class Image(models.Model):
+
+    place = models.ForeignKey(Place, on_delete=models.CASCADE,
+                            related_name='place')
+    image_number = models.PositiveSmallIntegerField()
+    image = models.ImageField()
+
+
+    def __str__(self):
+        return f"{self.image_number} {self.place}"
+
+    class Meta:
+        verbose_name = "Изображение"
+        verbose_name_plural = "Изображения"
