@@ -28,7 +28,7 @@ class Image(models.Model):
     place = models.ForeignKey(Place, on_delete=models.CASCADE,
                             related_name='place')
     image_number = models.PositiveSmallIntegerField()
-    image = models.ImageField()
+    image = models.ImageField(upload_to='places', blank=True)
 
 
     def __str__(self):
