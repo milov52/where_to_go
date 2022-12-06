@@ -26,7 +26,7 @@ class Place(models.Model):
 
 class Image(models.Model):
     position = models.PositiveSmallIntegerField(verbose_name='Позиция', default=0)
-    image = models.ImageField(upload_to='places', blank=True, verbose_name='Картинка')
+    place_image = models.ImageField(upload_to='places', blank=True, verbose_name='Картинка')
     places = models.ForeignKey(Place, on_delete=models.CASCADE)
     def __str__(self):
         return f"{self.position} {self.places}"
@@ -34,3 +34,4 @@ class Image(models.Model):
     class Meta:
         verbose_name = "Фотография"
         verbose_name_plural = "Фотографии"
+
