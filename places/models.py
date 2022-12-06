@@ -28,12 +28,12 @@ class Image(models.Model):
 
     place = models.ForeignKey(Place, on_delete=models.CASCADE,
                             related_name='place')
-    position = models.PositiveSmallIntegerField(verbose_name='Позиция')
+    position = models.PositiveSmallIntegerField(verbose_name='Позиция', default=0)
     image = models.ImageField(upload_to='places', blank=True)
 
 
     def __str__(self):
-        return f"{self.image_number} {self.place}"
+        return f"{self.position} {self.place}"
 
     class Meta:
         verbose_name = "Изображение"
