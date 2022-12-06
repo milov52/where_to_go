@@ -8,19 +8,42 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Place',
+            name="Place",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=255)),
-                ('description_short', models.TextField()),
-                ('description_long', models.TextField()),
-                ('coord_lng', models.FloatField(validators=[django.core.validators.MinValueValidator(-90.0), django.core.validators.MaxValueValidator(90.0)])),
-                ('coord_lat', models.FloatField(validators=[django.core.validators.MinValueValidator(-90.0), django.core.validators.MaxValueValidator(90.0)])),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=255)),
+                ("description_short", models.TextField()),
+                ("description_long", models.TextField()),
+                (
+                    "coord_lng",
+                    models.FloatField(
+                        validators=[
+                            django.core.validators.MinValueValidator(-90.0),
+                            django.core.validators.MaxValueValidator(90.0),
+                        ]
+                    ),
+                ),
+                (
+                    "coord_lat",
+                    models.FloatField(
+                        validators=[
+                            django.core.validators.MinValueValidator(-90.0),
+                            django.core.validators.MaxValueValidator(90.0),
+                        ]
+                    ),
+                ),
             ],
         ),
     ]

@@ -7,13 +7,15 @@ from .models import Image, Place
 
 class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Image
-    fields = ('place_image', 'preview_image', 'position')
+    fields = ("place_image", "preview_image", "position")
 
-    readonly_fields = ('preview_image',)
+    readonly_fields = ("preview_image",)
 
     def preview_image(self, obj):
-        return format_html('<img src="{url}" width=200px height=auto />'.format(
-            url=obj.place_image.url)
+        return format_html(
+            '<img src="{url}" width=200px height=auto />'.format(
+                url=obj.place_image.url
+            )
         )
 
 

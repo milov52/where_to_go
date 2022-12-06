@@ -10,7 +10,7 @@ def home(request):
     value = {"type": "FeatureCollection", "features": []}
 
     for place in places:
-        details = reverse('places:api', kwargs={"place_id": place.pk})
+        details = reverse("places:api", kwargs={"place_id": place.pk})
         feature = {
             "type": "Feature",
             "geometry": {
@@ -20,7 +20,7 @@ def home(request):
             "properties": {
                 "title": place.title,
                 "placeId": place.placeId,
-                "detailsUrl": details
+                "detailsUrl": details,
             },
         }
         value["features"].append(feature)
@@ -42,7 +42,9 @@ def api(request, place_id):
         "imgs": img,
         "description_short": place.description_short,
         "description_long": place.description_long,
-        "coordinates": [place.coord_lng, place.coord_lat]
+        "coordinates": [place.coord_lng, place.coord_lat],
     }
 
-    return JsonResponse(data, safe=False, json_dumps_params={'ensure_ascii': False, 'indent': 2})
+    return JsonResponse(
+        data, safe=False, json_dumps_params={"ensure_ascii": False, "indent": 2}
+    )

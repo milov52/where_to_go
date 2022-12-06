@@ -6,22 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('places', '0003_alter_image_image'),
+        ("places", "0003_alter_image_image"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='image',
-            name='image_number',
+            model_name="image",
+            name="image_number",
         ),
         migrations.AddField(
-            model_name='image',
-            name='position',
-            field=models.PositiveSmallIntegerField(default=0, verbose_name='Позиция'),
+            model_name="image",
+            name="position",
+            field=models.PositiveSmallIntegerField(default=0, verbose_name="Позиция"),
         ),
         migrations.AddField(
-            model_name='place',
-            name='placeId',
+            model_name="place",
+            name="placeId",
             field=models.SlugField(default=1123),
             preserve_default=False,
         ),

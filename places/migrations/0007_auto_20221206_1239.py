@@ -7,18 +7,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('places', '0006_alter_place_images'),
+        ("places", "0006_alter_place_images"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='place',
-            name='images',
+            model_name="place",
+            name="images",
         ),
         migrations.AddField(
-            model_name='image',
-            name='place',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='places.place'),
+            model_name="image",
+            name="place",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="places.place",
+            ),
             preserve_default=False,
         ),
     ]

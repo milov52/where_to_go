@@ -8,50 +8,77 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('places', '0001_initial'),
+        ("places", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='place',
-            options={'verbose_name': 'Место', 'verbose_name_plural': 'Места'},
+            name="place",
+            options={"verbose_name": "Место", "verbose_name_plural": "Места"},
         ),
         migrations.AlterField(
-            model_name='place',
-            name='coord_lat',
-            field=models.FloatField(validators=[django.core.validators.MinValueValidator(-90.0), django.core.validators.MaxValueValidator(90.0)], verbose_name='Широта'),
+            model_name="place",
+            name="coord_lat",
+            field=models.FloatField(
+                validators=[
+                    django.core.validators.MinValueValidator(-90.0),
+                    django.core.validators.MaxValueValidator(90.0),
+                ],
+                verbose_name="Широта",
+            ),
         ),
         migrations.AlterField(
-            model_name='place',
-            name='coord_lng',
-            field=models.FloatField(validators=[django.core.validators.MinValueValidator(-90.0), django.core.validators.MaxValueValidator(90.0)], verbose_name='Долгота'),
+            model_name="place",
+            name="coord_lng",
+            field=models.FloatField(
+                validators=[
+                    django.core.validators.MinValueValidator(-90.0),
+                    django.core.validators.MaxValueValidator(90.0),
+                ],
+                verbose_name="Долгота",
+            ),
         ),
         migrations.AlterField(
-            model_name='place',
-            name='description_long',
-            field=models.TextField(verbose_name='Полное описание'),
+            model_name="place",
+            name="description_long",
+            field=models.TextField(verbose_name="Полное описание"),
         ),
         migrations.AlterField(
-            model_name='place',
-            name='description_short',
-            field=models.TextField(verbose_name='Краткое описание'),
+            model_name="place",
+            name="description_short",
+            field=models.TextField(verbose_name="Краткое описание"),
         ),
         migrations.AlterField(
-            model_name='place',
-            name='title',
-            field=models.CharField(max_length=255, verbose_name='Название места'),
+            model_name="place",
+            name="title",
+            field=models.CharField(max_length=255, verbose_name="Название места"),
         ),
         migrations.CreateModel(
-            name='Image',
+            name="Image",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('image_number', models.PositiveSmallIntegerField()),
-                ('image', models.ImageField(upload_to='')),
-                ('place', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='place', to='places.place')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("image_number", models.PositiveSmallIntegerField()),
+                ("image", models.ImageField(upload_to="")),
+                (
+                    "place",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="place",
+                        to="places.place",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Изображение',
-                'verbose_name_plural': 'Изображения',
+                "verbose_name": "Изображение",
+                "verbose_name_plural": "Изображения",
             },
         ),
     ]
