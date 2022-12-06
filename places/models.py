@@ -16,6 +16,7 @@ class Place(models.Model):
         validators=[MinValueValidator(-90.0), MaxValueValidator(90.0)]
     )
 
+
     def __str__(self):
         return self.title
 
@@ -25,11 +26,11 @@ class Place(models.Model):
 
 class Image(models.Model):
     position = models.PositiveSmallIntegerField(verbose_name='Позиция', default=0)
-    image = models.ImageField(upload_to='places', blank=True)
-    place = models.ForeignKey(Place, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='places', blank=True, verbose_name='Картинка')
+    places = models.ForeignKey(Place, on_delete=models.CASCADE)
     def __str__(self):
-        return f"{self.position} {self.place}"
+        return f"{self.position} {self.places}"
 
     class Meta:
-        verbose_name = "Изображение"
-        verbose_name_plural = "Изображения"
+        verbose_name = "Фотография"
+        verbose_name_plural = "Фотографии"
