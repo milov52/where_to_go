@@ -1,12 +1,12 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-
+from tinymce.models import HTMLField
 
 class Place(models.Model):
     title = models.CharField(max_length=255, verbose_name='Название места')
     placeId = models.SlugField()
     description_short = models.TextField(verbose_name='Краткое описание')
-    description_long = models.TextField(verbose_name='Полное описание')
+    description_long = HTMLField()
     coord_lng = models.FloatField(
         verbose_name='Долгота',
         validators=[MinValueValidator(-90.0), MaxValueValidator(90.0)]

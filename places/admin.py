@@ -1,5 +1,4 @@
 from adminsortable2.admin import SortableInlineAdminMixin
-
 from django.contrib import admin
 from django.utils.html import format_html
 
@@ -25,7 +24,3 @@ class PostAdmin(admin.ModelAdmin):
     inlines = [
         ImageInline,
     ]
-
-
-# admin.site.register(Place, PostAdmin)
-admin.site.register(Image)
