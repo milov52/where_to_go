@@ -4,6 +4,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Place(models.Model):
     title = models.CharField(max_length=255, verbose_name='Название места')
+    placeId = models.SlugField()
     description_short = models.TextField(verbose_name='Краткое описание')
     description_long = models.TextField(verbose_name='Полное описание')
     coord_lng = models.FloatField(
@@ -27,7 +28,7 @@ class Image(models.Model):
 
     place = models.ForeignKey(Place, on_delete=models.CASCADE,
                             related_name='place')
-    image_number = models.PositiveSmallIntegerField()
+    position = models.PositiveSmallIntegerField(verbose_name='Позиция')
     image = models.ImageField(upload_to='places', blank=True)
 
 
