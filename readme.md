@@ -11,7 +11,7 @@
 ## Установка проекта
 Клонируйте данный репозиторий на свой компьютер и перейдите в папку проекта.
 <pre><code>git clone https://github.com/milov52/where_to_go.git</code>
-<code>cd where_to-go</code></pre>
+<code>cd where_to_go</code></pre>
 Создайте и активируйте виртуальное окружение:
 <pre><code>python -m venv venv</code>
 <code>source venv/Scripts/activate  #для Windows</code>
