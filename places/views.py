@@ -46,5 +46,7 @@ def api(request, place_id):
     }
 
     return JsonResponse(
-        data, safe=False, json_dumps_params={"ensure_ascii": False, "indent": 2}
+        data,
+        safe=False,
+        json_dumps_params={"ensure_ascii": False, "indent": 2},
     )
