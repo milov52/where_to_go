@@ -8,6 +8,16 @@
 ## Используемые технологии
 * Python 3.7
 * Django 2.2
+
+## Переменные окружения
+
+DEBUG — режим отладки, по дефолту False
+
+SECRET_KEY — секретный ключ Django
+
+ALLOWED_HOSTS — один или несколько хостов, разделённых запятой. [Документация](https://django-storages.readthedocs.io/en/latest/backends/digital-ocean-spaces.html).
+
+
 ## Установка проекта
 Клонируйте данный репозиторий на свой компьютер и перейдите в папку проекта.
 <pre><code>git clone https://github.com/milov52/where_to_go.git</code>
@@ -23,8 +33,15 @@
 Запустите django-сервер:
 <pre><code>python manage.py runserver</code></pre>
 
+## Загрузка демо данных
 
-Пример демо данных в json
+Для загрузки данных в проекте используется скрипт load_place
+
+Для его запуска необходимо запустить команду
+
+<pre><code>python manage.py load_place</code></pre>
+
+## Пример демо данных в json
 <pre>
 {
     "title": "Места, где снимался  фильм «Операция „Ы“ и другие приключения Шурика»",
@@ -49,3 +66,5 @@
     }
 }
 </pre>
+
+

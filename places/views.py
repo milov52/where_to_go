@@ -19,7 +19,6 @@ def home(request):
             },
             "properties": {
                 "title": place.title,
-                "placeId": place.placeId,
                 "detailsUrl": details,
             },
         }
@@ -35,9 +34,9 @@ def api(request, place_id):
     images = Image.objects.filter(places=place_id)
     img = []
     for image in images:
-        img.append(str(image.place_image.url))
+        img.append(str(image.image.url))
 
-    data = {
+    selectedPlace = {
         "title": place.title,
         "imgs": img,
         "description_short": place.description_short,
@@ -46,7 +45,7 @@ def api(request, place_id):
     }
 
     return JsonResponse(
-        data,
+        selectedPlace,
         safe=False,
         json_dumps_params={"ensure_ascii": False, "indent": 2},
     )

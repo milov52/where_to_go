@@ -19,6 +19,7 @@ class Command(BaseCommand):
 
         file_prefix = "https://raw.githubusercontent.com/devmanorg/where-to-go-places/master/places/"
         for place in places:
+            print(place)
             response = requests.get(file_prefix + place)
             place_info = response.json()
             obj, created = Place.objects.get_or_create(
@@ -37,7 +38,7 @@ class Command(BaseCommand):
                 new_image, created = Image.objects.get_or_create(
                     places=obj,
                     position=index,
-                    place_image="places/" + image_name,
+                    image=image_name,
                 )
                 index += 1
 
@@ -45,6 +46,6 @@ class Command(BaseCommand):
                     img_temp = NamedTemporaryFile(delete=True)
                     img_temp.write(urllib.request.urlopen(image_url).read())
                     img_temp.flush()
-                    new_image.place_image.save(
+                    new_image.image.save(
                         image_name, File(img_temp), save=True
                     )
