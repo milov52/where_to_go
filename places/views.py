@@ -5,7 +5,7 @@ from django.urls import reverse
 from .models import Image, Place
 
 
-def home(request):
+def get_index_page(request):
     places = Place.objects.all()
     value = {"type": "FeatureCollection", "features": []}
 
@@ -15,7 +15,7 @@ def home(request):
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [place.coord_lng, place.coord_lat],
+                "coordinates": [place.langitude, place.latitude],
             },
             "properties": {
                 "title": place.title,
@@ -28,24 +28,19 @@ def home(request):
     return render(request, "index.html", context=context)
 
 
-def api(request, place_id):
+def get_api(request, place_id):
     place = get_object_or_404(Place, pk=place_id)
+    img = [image.image.url for image in place.images.all()]
 
-    images = Image.objects.filter(places=place_id)
-    img = []
-    for image in images:
-        img.append(str(image.image.url))
-
-    selectedPlace = {
+    selected_place = {
         "title": place.title,
         "imgs": img,
         "description_short": place.description_short,
         "description_long": place.description_long,
-        "coordinates": [place.coord_lng, place.coord_lat],
+        "coordinates": [place.langitude, place.latitude],
     }
 
     return JsonResponse(
-        selectedPlace,
-        safe=False,
-        json_dumps_params={"ensure_ascii": False, "indent": 2},
+        selected_place,
+        json_dumps_params={"ensure_ascii": False},
     )

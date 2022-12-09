@@ -9,11 +9,11 @@ class Place(models.Model):
         verbose_name="Краткое описание", blank=True
     )
     description_long = HTMLField()
-    coord_lng = models.FloatField(
+    langitude = models.FloatField(
         verbose_name="Долгота",
-        validators=[MinValueValidator(-90.0), MaxValueValidator(90.0)],
+        validators=[MinValueValidator(-180.0), MaxValueValidator(180.0)],
     )
-    coord_lat = models.FloatField(
+    latitude = models.FloatField(
         verbose_name="Широта",
         validators=[MinValueValidator(-90.0), MaxValueValidator(90.0)],
     )
@@ -32,7 +32,8 @@ class Image(models.Model):
         verbose_name="Позиция", default=0
     )
     image = models.ImageField(upload_to="places", verbose_name="Картинка")
-    places = models.ForeignKey(Place, on_delete=models.CASCADE)
+    places = models.ForeignKey(Place, on_delete=models.CASCADE,
+                               related_name='images')
 
     def __str__(self):
         return f"{self.position} {self.places}"

@@ -5,6 +5,6 @@ from . import views
 app_name = "places"
 
 urlpatterns = [
-    path("", views.home, name="home"),
-    path("place/<int:place_id>", views.api, name="api"),
+    path("", views.get_index_page, name="index"),
+    path("place/<int:place_id>", views.get_api, name="api"),
 ]

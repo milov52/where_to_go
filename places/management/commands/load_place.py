@@ -1,4 +1,3 @@
-import os
 import urllib.request
 from urllib.parse import urlparse
 
@@ -11,23 +10,19 @@ from places.models import Image, Place
 
 
 class Command(BaseCommand):
+    def add_arguments(self, parser):
+        parser.add_argument("places", nargs="+", type=str)
+
     def handle(self, *args, **options):
-        file_name = os.path.dirname(os.path.realpath(__file__)) + "/list"
-
-        with open(file_name) as f:
-            places = f.read().splitlines()
-
-        file_prefix = "https://raw.githubusercontent.com/devmanorg/where-to-go-places/master/places/"
-        for place in places:
-            print(place)
-            response = requests.get(file_prefix + place)
+        for place in options["places"]:
+            response = requests.get(place)
             place_info = response.json()
             obj, created = Place.objects.get_or_create(
                 title=place_info["title"],
                 description_short=place_info["description_short"],
                 description_long=place_info["description_long"],
-                coord_lng=place_info["coordinates"]["lng"],
-                coord_lat=place_info["coordinates"]["lat"],
+                langitude=place_info["coordinates"]["lng"],
+                latitude=place_info["coordinates"]["lat"],
             )
 
             images = place_info["imgs"]
@@ -46,6 +41,4 @@ class Command(BaseCommand):
                     img_temp = NamedTemporaryFile(delete=True)
                     img_temp.write(urllib.request.urlopen(image_url).read())
                     img_temp.flush()
-                    new_image.image.save(
-                        image_name, File(img_temp), save=True
-                    )
+                    new_image.image.save(image_name, File(img_temp), save=True)
