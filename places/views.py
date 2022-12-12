@@ -2,7 +2,7 @@ from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
-from .models import Image, Place
+from .models import Place
 
 
 def get_index_page(request):
@@ -10,25 +10,24 @@ def get_index_page(request):
     value = {"type": "FeatureCollection", "features": []}
 
     for place in places:
-        details = reverse("places:api", kwargs={"place_id": place.pk})
+        detail_info = reverse("places:api", kwargs={"place_id": place.pk})
         feature = {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [place.langitude, place.latitude],
+                "coordinates": [place.longitude, place.latitude],
             },
             "properties": {
                 "title": place.title,
-                "detailsUrl": details,
+                "detailsUrl": detail_info,
             },
         }
         value["features"].append(feature)
+    print(value)
+    return render(request, "index.html", {"value": value})
 
-    context = {"value": value}
-    return render(request, "index.html", context=context)
 
-
-def get_api(request, place_id):
+def get_detail_info(request, place_id):
     place = get_object_or_404(Place, pk=place_id)
     img = [image.image.url for image in place.images.all()]
 
@@ -37,7 +36,7 @@ def get_api(request, place_id):
         "imgs": img,
         "description_short": place.description_short,
         "description_long": place.description_long,
-        "coordinates": [place.langitude, place.latitude],
+        "coordinates": [place.longitude, place.latitude],
     }
 
     return JsonResponse(

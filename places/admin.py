@@ -11,13 +11,11 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
 
     readonly_fields = ("preview_image",)
 
-    def preview_image(self, obj):
+    def preview_image(self, place_image):
         return format_html(
-            '<img src="{url}" width=200px height=auto />'.format(
-                url=obj.place_image.url
-            )
+            '<img src="{}" height=200px width=auto />',
+            place_image.image.url
         )
-
 
 @admin.register(Place)
 class PostAdmin(admin.ModelAdmin):

@@ -21,7 +21,7 @@ class Command(BaseCommand):
                 title=place_info["title"],
                 description_short=place_info["description_short"],
                 description_long=place_info["description_long"],
-                langitude=place_info["coordinates"]["lng"],
+                longitude=place_info["coordinates"]["lng"],
                 latitude=place_info["coordinates"]["lat"],
             )
 
