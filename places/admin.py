@@ -13,9 +13,9 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
 
     def preview_image(self, place_image):
         return format_html(
-            '<img src="{}" height=200px width=auto />',
-            place_image.image.url
+            '<img src="{}" height=200px width=auto />', place_image.image.url
         )
+
 
 @admin.register(Place)
 class PostAdmin(admin.ModelAdmin):

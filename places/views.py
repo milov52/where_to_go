@@ -23,7 +23,6 @@ def get_index_page(request):
             },
         }
         value["features"].append(feature)
-    print(value)
     return render(request, "index.html", {"value": value})
 
 
