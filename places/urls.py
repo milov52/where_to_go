@@ -6,5 +6,5 @@ app_name = "places"
 
 urlpatterns = [
     path("", views.get_index_page, name="index"),
-    path("place/<int:place_id>", views.get_detail_info, name="api"),
+    path("place/<int:place_id>", views.get_detail_info, name="detail_info"),
 ]

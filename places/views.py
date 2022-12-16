@@ -7,10 +7,12 @@ from .models import Place
 
 def get_index_page(request):
     places = Place.objects.all()
-    value = {"type": "FeatureCollection", "features": []}
+    place_info = {"type": "FeatureCollection", "features": []}
 
     for place in places:
-        detail_info = reverse("places:api", kwargs={"place_id": place.pk})
+        detail_info = reverse(
+            "places:detail_info", kwargs={"place_id": place.pk}
+        )
         feature = {
             "type": "Feature",
             "geometry": {
@@ -22,17 +24,16 @@ def get_index_page(request):
                 "detailsUrl": detail_info,
             },
         }
-        value["features"].append(feature)
-    return render(request, "index.html", {"value": value})
+        place_info["features"].append(feature)
+    return render(request, "index.html", {"value": place_info})
 
 
 def get_detail_info(request, place_id):
     place = get_object_or_404(Place, pk=place_id)
-    img = [image.image.url for image in place.images.all()]
 
     selected_place = {
         "title": place.title,
-        "imgs": img,
+        "imgs": [image.image.url for image in place.images.all()],
         "description_short": place.description_short,
         "description_long": place.description_long,
         "coordinates": [place.longitude, place.latitude],
