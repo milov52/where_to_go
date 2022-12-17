@@ -11,25 +11,14 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument("place_url", nargs="+", type=str)
 
-    def create_place(self, place_info):
-       return Place.objects.get_or_create(
-            title=place_info["title"],
-            longitude=place_info["coordinates"]["lng"],
-            latitude=place_info["coordinates"]["lat"],
-            defaults={
-                "description_short": place_info.get(
-                    "description_short", ""
-                ),
-                "description_long": place_info.get("description_long", ""),
-            },
-        )
-
     def create_image(self, place_info, place):
         images = place_info.get("imgs", [])
-        for position, filepath in enumerate(images):
-            image_name = urlparse(filepath).path.split("/")[-1]
+        for position, image_url in enumerate(images):
+            response = requests.get(image_url)
 
-            content_file = ContentFile(filepath, name=image_name)
+            response.raise_for_status()
+            image_name = urlparse(image_url).path.split("/")[-1]
+            content_file = ContentFile(response.content, name=image_name)
             Image.objects.create(
                 places=place, image=content_file, position=position
             )
@@ -37,9 +26,20 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         for place_url in options["place_url"]:
             response = requests.get(place_url)
-            if response.ok:
-                place_info = response.json()
-                place, is_place_created = self.create_place(place_info)
+            response.raise_for_status()
 
-                if is_place_created:
-                    self.create_image(place_info, place)
+            place_info = response.json()
+            place, is_place_created = Place.objects.get_or_create(
+                title=place_info["title"],
+                longitude=place_info["coordinates"]["lng"],
+                latitude=place_info["coordinates"]["lat"],
+                defaults={
+                    "description_short": place_info.get(
+                        "description_short", ""
+                    ),
+                    "description_long": place_info.get("description_long", ""),
+                },
+            )
+
+            if is_place_created:
+                self.create_image(place_info, place)
